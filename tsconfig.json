@@ -17,9 +17,12 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
+      "@styled-components/*": ["./styled-components/*"],
       "@services/*": ["./services/*"],
       "@contexts/*": ["./contexts/*"],
+      "@layouts/*": ["./layouts/*"],
       "@models/*": ["./models/*"],
+      "@assets/*": ["./assets/*"],
       "@hooks/*": ["./hooks/*"],
       "@pages/*": ["./pages/*"],
     }
