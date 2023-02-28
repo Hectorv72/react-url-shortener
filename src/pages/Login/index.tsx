@@ -1,11 +1,13 @@
 import useSession from '@hooks/useSession'
 // import Divider from '@layouts/Divider'
-import { AuthLoginForm, AuthLoginModel, AuthRegisterModel } from '@models/AuthModel'
-import React, { useEffect, useState } from 'react'
+import { AuthLoginForm } from '@models/AuthModel'
+import { RouterPages } from '@models/enums/RouterEnums'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+  const navigate = useNavigate()
   const { session, login } = useSession()
-  // const [form, setForm] = useState<AuthLoginModel | AuthRegisterModel>()
 
   const handleSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -14,9 +16,11 @@ const Login = () => {
     login(form.email, form.password)
   }
 
-  // useEffect(() => {
-  //   login('hector2@gmail.com', 'probando')
-  // }, [])
+  useEffect(() => {
+    if (session?.loaded) {
+      navigate(RouterPages.home)
+    }
+  }, [session?.loaded])
 
   return (
     <div>
@@ -57,6 +61,18 @@ const Login = () => {
                 {/* <!-- Submit button --> */}
                 <div className="d-grid gap-2">
                   <button type='submit' className='btn btn-primary btn-block'>Ingresar</button>
+                  {
+                    session?.message?.text &&
+                    <div className={`alert ${session.message.color} p-1 text-center`}>
+                      {
+                        session.loading
+                          ? <div className="spinner-border spinner-border-sm" role="status">
+                            <span className="visually-hidden">{session.message.color}</span>
+                          </div>
+                          : session.message.text
+                      }
+                    </div>
+                  }
                 </div>
 
                 {/* <Divider label='OR' /> */}
