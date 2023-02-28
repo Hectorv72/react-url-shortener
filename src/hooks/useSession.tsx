@@ -17,9 +17,8 @@ export default () => {
       try {
         const user = await authGetProfile(token)
         updateSession({ ...previous, loading: false, loaded: true, user })
-        return true
       } catch (error) {
-        return false
+        logout()
       }
     }
     return false
