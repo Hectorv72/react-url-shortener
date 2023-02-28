@@ -1,6 +1,6 @@
 import UserModel, { EndpointUser } from "@models/UserModel";
 
-export default (response: EndpointUser) => {
+export default (response: EndpointUser): UserModel => {
   const user = response.user
   const formatedUser: UserModel = {
     email: user.email,

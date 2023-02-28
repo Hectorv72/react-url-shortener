@@ -2,12 +2,14 @@ import useSession from '@hooks/useSession'
 // import Divider from '@layouts/Divider'
 import { AuthLoginForm } from '@models/AuthModel'
 import { RouterPages } from '@models/enums/RouterEnums'
-import React, { useEffect } from 'react'
+import LoaderSplash from 'components/LoaderSplash'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const navigate = useNavigate()
-  const { session, login } = useSession()
+  const [splash, setSplash] = useState<boolean>(true)
+  const { session, login, load } = useSession()
 
   const handleSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -16,6 +18,18 @@ const Login = () => {
     login(form.email, form.password)
   }
 
+  const handleHideSplash = async () => {
+    if (localStorage.getItem('shorty-token')) {
+      setSplash(await load())
+    } else {
+      setSplash(false)
+    }
+  }
+
+  useEffect(() => {
+    handleHideSplash()
+  }, [])
+
   useEffect(() => {
     if (session?.loaded) {
       navigate(RouterPages.home)
@@ -23,8 +37,9 @@ const Login = () => {
   }, [session?.loaded])
 
   return (
-    <div>
-      <section className='vh-100'>
+    splash
+      ? <LoaderSplash />
+      : <section className='vh-100'>
         <div className='container py-5 h-100'>
           <div className='row d-flex align-items-center justify-content-center h-100'>
             <div className='col-md-8 col-lg-7 col-xl-6'>
@@ -90,7 +105,6 @@ const Login = () => {
           </div>
         </div>
       </section>
-    </div>
   )
 }
 

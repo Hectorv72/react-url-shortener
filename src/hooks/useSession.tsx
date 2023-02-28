@@ -9,15 +9,17 @@ export default () => {
   const { session, updateSession }: AuthModel = useContext<AuthModel>(SessionContext)
   const defaultSession = { loading: false, loaded: false, message: null }
 
-  const verify = async () => {
+  const load = async (): Promise<boolean> => {
     const token = localStorage.getItem('shorty-token')
     if (token) {
+      const previous = { ...defaultSession, token, loading: true }
+      updateSession(previous)
       try {
-        await authGetProfile(token)
+        const user = await authGetProfile(token)
+        updateSession({ ...previous, loading: false, loaded: true, user })
         return true
       } catch (error) {
-        logout()
-        console.log(error)
+        return false
       }
     }
     return false
@@ -34,10 +36,10 @@ export default () => {
     return null
   }
 
-  const logout = () => {
+  const logout = (): void => {
     updateSession(defaultSession)
     localStorage.removeItem('shorty-token')
   }
 
-  return { session, login, logout }
+  return { session, login, logout, load }
 }
