@@ -10,10 +10,7 @@ const Home = () => {
 
   return (
     <div className='mt-3'>
-      <div className='d-flex justify-content-end me-2'>
-        <button className='btn btn-primary' onClick={handleNavigateLogin}>Ingresar</button>
-      </div>
-      <h4 className='text-center'>Shorty - Manager</h4>
+      <h5 className='text-center'>Convertidor</h5>
       <div className='container'>
         <InputCreate />
       </div>

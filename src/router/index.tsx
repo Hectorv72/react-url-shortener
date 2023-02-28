@@ -6,9 +6,16 @@ import Login from '@pages/Login'
 import { RouterPages } from '@models/enums/RouterEnums'
 import LoaderSplash from 'components/LoaderSplash'
 import useSession from '@hooks/useSession'
+import Root from '@pages/Root'
 
 const routes = createBrowserRouter([
-  { path: RouterPages.home, element: <Home /> },
+  {
+    path: RouterPages.home,
+    element: <Root />,
+    children: [
+      { index: true, element: <Home /> }
+    ]
+  },
   { path: RouterPages.login, element: <Login /> }
 ])
 

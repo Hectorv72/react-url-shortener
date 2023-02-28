@@ -61,7 +61,8 @@ const Login = () => {
 
               {/* <!-- Submit button --> */}
               <div className="d-grid gap-2">
-                <button type='submit' className='btn btn-primary btn-block'>Ingresar</button>
+                <button type='submit' className='btn btn-primary btn-block' disabled={session?.loading}>Ingresar</button>
+                <button type='button' className='btn btn-outline-primary btn-block' onClick={() => navigate(-1)} disabled={session?.loading}>Volver</button>
                 {
                   session?.message?.text &&
                   <div className={`alert ${session.message.color} p-1 text-center`}>

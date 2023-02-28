@@ -18,6 +18,7 @@
     "jsx": "react-jsx",
     "paths": {
       "@styled-components/*": ["./styled-components/*"],
+      "@components/*": ["./components/*"],
       "@services/*": ["./services/*"],
       "@contexts/*": ["./contexts/*"],
       "@layouts/*": ["./layouts/*"],
