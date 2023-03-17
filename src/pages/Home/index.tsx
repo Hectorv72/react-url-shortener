@@ -1,12 +1,11 @@
 import React from 'react'
 import InputCreate from './components/InputCreate'
-import { useNavigate } from 'react-router-dom'
-import { RouterPages } from '@models/enums/RouterEnums'
 
 const Home = () => {
-  const navigate = useNavigate()
 
-  const handleNavigateLogin = () => navigate(RouterPages.login)
+  const handleCreateLink = () => {
+
+  }
 
   return (
     <div className='mt-3'>
