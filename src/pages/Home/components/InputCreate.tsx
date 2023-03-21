@@ -1,15 +1,20 @@
 import React, { ChangeEvent, FormEvent, useRef, useState } from 'react'
 import { createShortener } from '@services/ShortenerServices';
 import { isUri } from 'valid-url'
+import { toast } from 'react-toastify';
 
 interface propsType {
   onCreate: Function;
+  onSend?: Function;
 }
 
-const InputCreate = ({ onCreate }: propsType) => {
+const InputCreate = ({ onCreate, onSend }: propsType) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const [link, setLink] = useState<string | undefined>(undefined)
   const [loading, setLoading] = useState(false)
+
+  const showNotifySuccess = () => toast.success("Acortador creado correctamente")
+  const showNotifyError = () => toast.error("Error al crear el acortador")
 
   const handleVerifyUrl = async (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
@@ -21,10 +26,14 @@ const InputCreate = ({ onCreate }: propsType) => {
     event.preventDefault()
     if (link) {
       setLoading(true)
+      onSend && onSend()
       const shortener = await createShortener(link)
       if (shortener) {
         if (inputRef.current?.value) { inputRef.current.value = '' }
+        showNotifySuccess()
         onCreate && onCreate(shortener)
+      } else {
+        showNotifyError()
       }
       setLoading(false)
     }

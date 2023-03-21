@@ -4,7 +4,7 @@ import { AlertMessageTypes } from "@models/enums/AlertEnums";
 import UserAdapter from "adapters/UserAdapter";
 import axios, { AxiosError } from "axios";
 
-const url = import.meta.env.VITE_APP_API_URL
+const url = import.meta.env.VITE_APP_SERVER_URL + '/api'
 
 export const authLogin = async (email: string, password: string): Promise<SessionModel> => {
   let data: SessionModel = {
