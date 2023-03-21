@@ -7,7 +7,7 @@ const UserDropdown = () => {
   const { session, logout } = useSession()
 
   return (
-    <NavDropdown title={session?.user?.username} id="navbarScrollingDropdown" align='end'>
+    <NavDropdown color='white' title={session?.user?.username} id="navbarScrollingDropdown" align='end'>
       <NavDropdown.Item>
         Mis links
       </NavDropdown.Item>
